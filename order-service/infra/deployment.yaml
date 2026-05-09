@@ -14,7 +14,12 @@ spec:
     spec:
       containers:
         - name: order-svc
-          image: thecodealchemist/order-svc:1.0-SNAPSHOT
+          image: thecodealchemist/order-svc:1.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: order-svc-config
+            - secretRef:
+                name: order-svc-secret
