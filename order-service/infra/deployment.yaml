@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-svc
-          image: thecodealchemist/order-svc:1.1-SNAPSHOT
+          image: thecodealchemist/order-svc:1.2-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -23,3 +23,16 @@ spec:
                 name: order-svc-config
             - secretRef:
                 name: order-svc-secret
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 3

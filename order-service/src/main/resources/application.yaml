@@ -2,6 +2,11 @@ spring:
   application:
     name: order-service
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
 app:
   message: Demo application
   apiToken:
