@@ -1,6 +1,7 @@
 package com.thecodealchemist;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,21 @@ public class OrderServiceApplication {
 
         private final Map<String, Order> ORDERS_DB = new HashMap<>();
 
+        @Value("${app.message}")
+        private String message;
+
+        @Value("${app.apiToken}")
+        private String apiToken;
+
         @GetMapping
         public Map<String, Order> orders() {
             log.info("Getting orders from DB");
             return ORDERS_DB;
+        }
+
+        @GetMapping("/config")
+        public  Map<String, String> config() {
+            return Map.of("message", message,  "apiToken", apiToken);
         }
 
         @PostMapping
