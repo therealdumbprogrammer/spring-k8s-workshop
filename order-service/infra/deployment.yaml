@@ -14,10 +14,15 @@ spec:
     spec:
       containers:
         - name: order-svc
-          image: thecodealchemist/order-svc:1.2-SNAPSHOT
+          image: thecodealchemist/order-svc:1.4-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           envFrom:
             - configMapRef:
                 name: order-svc-config
