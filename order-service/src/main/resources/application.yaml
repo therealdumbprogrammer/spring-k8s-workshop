@@ -10,3 +10,8 @@ management:
 app:
   message: Demo application
   apiToken:
+
+
+inventory:
+  service:
+    url: http://inventory-service:8080
